@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { Serve } from 'bun';
-import { createBunWebSocket } from 'hono/bun';
 import { zValidator } from '@hono/zod-validator';
+import { createBunWebSocket, serveStatic } from 'hono/bun';
 
 import { type Body, body } from './schema';
 import { Home, NewPopup, Entries } from './components';
@@ -20,6 +20,13 @@ export const factory = (port: number): Serve<any> => {
     entries.push(c.req.valid('form'));
     return c.text('OK');
   });
+
+  app.use("/assets/*", serveStatic({
+    root: "./assets",
+    rewriteRequestPath: (path) => path.replace(/^\/assets/, ''),
+    onFound: (_path, c) => c.header('Cache-Control', 'max-age=3600')
+    ,
+  }));
 
   app.get(
     '/ws',
@@ -43,7 +50,7 @@ export const factory = (port: number): Serve<any> => {
 
   return {
     fetch: app.fetch,
-    port: 3333,
     websocket,
+    port,
   };
 };

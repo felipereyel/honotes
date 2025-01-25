@@ -4,15 +4,15 @@ const page = (title: string, Child: JSX.Element) => (
   <html>
     <head>
       <title>{title} | Honotes</title>
+
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <script src="https://cdn.tailwindcss.com"></script>
-      <script
-        src="https://unpkg.com/htmx.org@1.9.6"
-        integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
-        crossorigin="anonymous"
-      ></script>
-      <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+      <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+
+      <script src="/assets/tailwind.js"></script>
+      <script src="/assets/htmx.js"></script>
+      <script src="/assets/htmx-ws.js"></script>
     </head>
     <body id="body" class="bg-slate-900 text-white">
       {Child}
